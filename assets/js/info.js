@@ -274,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          const src = `../memoria-imatges/images/${imageFileName}.${extensions[currentExtensionIndex]}`;
+          const src = `../assets/images/elements/${imageFileName}.${extensions[currentExtensionIndex]}`;
           atomImage.src = src;
           atomImage.alt = `Model d'àtom de ${elementData.nom}`;
           atomImage.classList.add("atom-image"); // Afegim una classe per poder estilitzar-la

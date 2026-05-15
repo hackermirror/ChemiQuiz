@@ -340,7 +340,7 @@ function carregarElements(elements) {
         return;
       }
 
-      const src = `images/${el.simbol}.${extensions[currentExtensionIndex]}`;
+      const src = `../assets/images/elements/${el.simbol}.${extensions[currentExtensionIndex]}`;
       img.src = src;
 
       img.onload = () => {

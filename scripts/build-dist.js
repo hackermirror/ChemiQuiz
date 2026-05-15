@@ -114,8 +114,7 @@ async function main() {
 
   const staticDirs = [
     'ImatgesDeFons',
-    'info/images',
-    'memoria-imatges/images'
+    'assets/images/elements'
   ];
 
   for (const dir of staticDirs) {
