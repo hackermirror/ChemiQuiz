@@ -47,3 +47,19 @@ Aquest projecte està sotmès sota la llicencia MIT, això vol dir que el codi q
 - Sergi Ventosa
 - Arnau Lacambra
 - Guiu Lacambra
+
+## Build
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Generate a minified distributable in `dist/`:
+
+```bash
+npm run build:dist
+```
+
+This does not modify the source files. It creates a production-ready copy under `dist/`.
