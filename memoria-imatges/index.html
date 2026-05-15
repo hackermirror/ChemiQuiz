@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ChemiQuiz: Memòria amb imatges</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <h1>ChemiQuiz: Memòria amb imatges</h1>
+
+    <!-- Formulari inicial -->
+    <section id="formulari">
+      <form id="configuracioJoc">
+        <p>
+          En aquest mode podràs desafiar i millorar la teva memòria associativa,
+          ja que hauràs d'emparellar els diferents elements amb les seves
+          inicials
+        </p>
+        <br />
+
+        <label>
+          Dificultat:
+          <select id="dificultat">
+            <option value="facil">Fàcil (10 preguntes)</option>
+            <option value="mitja">Mitjà (15 preguntes)</option>
+            <option value="dificil">Difícil (20 preguntes)</option>
+          </select> </label
+        ><br /><br />
+        <label>
+          Tipus d'elements:
+          <select id="importancia">
+            <option value="1">Només els rellevants</option>
+            <option value="0">Tots</option>
+          </select> </label
+        ><br /><br />
+
+        <button type="submit">Començar joc</button>
+        </br></br></br>
+        <a href="../jocs" style="text-decoration: none;" class="element">TORNAR A JOCS</a>
+      </form>
+    </section>
+
+    <!-- Zona del joc -->
+    <section id="joc" style="display: none">
+      <div id="crono"></div>
+      <div class="contenidor-drop" id="zonaDrop"></div>
+      <div class="contenidor-elements" id="zonaElements"></div>
+      <br><br>
+      <button onclick="reiniciarJoc()" class="element boto-retorn">Tornar al Menú</button>
+    </section>
+
+    <!-- Resultats -->
+    <section id="resultat" style="display: none">
+      <h2>Resultat Final</h2>
+      <p id="missatgeFinal"></p>
+      <button onclick="reiniciarJoc()" class="element">Tornar al Menú</button>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
