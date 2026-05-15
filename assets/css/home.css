@@ -1,0 +1,400 @@
+﻿body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* Ara el contingut s'apila verticalment */
+  align-items: center; /* Centra horitzontalment els elements fills */
+  justify-content: center; /* Centra verticalment els elements fills */
+
+  /* ✨ AQUI poses qualsevol imatge que vulguis */
+  background: url("https://images.unsplash.com/photo-1596226310268-f76b50d14a4a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+    no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  color: rgb(255, 255, 255); /* Color del text principal de la pàgina */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay fosc */
+  z-index: -1;
+}
+
+h1 {
+  /* El h1 de la pàgina principal "ChemiQuiz" */
+  margin-bottom: 40px;
+  font-weight: 700;
+  font-size: 10rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  /* --- NOUS ESTILS PER AL TÍTOL "ChemiQuiz" --- */
+  font-family: 'Montserrat', sans-serif; /* Una font més moderna i impactant */
+  color: #a7d9f7; /* Un blau més vibrant o similar a l'esquema de colors del modal */
+  /* Ombra de text millorada */
+  text-shadow: 0 0 10px rgba(167, 217, 247, 0.8),
+               0 0 20px rgba(167, 217, 247, 0.6),
+               0 0 30px rgba(167, 217, 247, 0.4),
+               0 0 40px rgba(167, 217, 247, 0.2);
+  letter-spacing: 5px; /* Espaiat de lletres per un look més estilístic */
+  transition: all 0.5s ease-in-out; /* Transició per a efectes de hover */
+}
+
+h1:hover {
+  transform: scale(1.05); /* Lleuger augment de mida al passar el ratolí */
+  text-shadow: 0 0 15px rgba(167, 217, 247, 1),
+               0 0 30px rgba(167, 217, 247, 0.8),
+               0 0 45px rgba(167, 217, 247, 0.6),
+               0 0 60px rgba(167, 217, 247, 0.4);
+}
+
+
+button {
+  background-color: #1e90ffcc;
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  margin: 15px;
+  font-size: 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* Propietats per a la mida fixa dels botons */
+  width: 220px;
+  min-width: 220px; /* Assegura que mai sigui més petit */
+  max-width: 220px; /* Assegura que mai sigui més gran */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+  background-color: #1e90ffee;
+}
+
+/* ---------------------------------------------------- */
+/* --- ESTILS PER AL MODAL (Descripció de ChemiQuiz) --- */
+/* ---------------------------------------------------- */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top, alt per assegurar que estigui per sobre de tot */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.7); /* Black w/ more opacity */
+  padding-top: 50px; /* Reduïm el padding superior per deixar espai per a la "x" */
+  padding-bottom: 50px;
+  box-sizing: border-box; /* Inclou padding en el càlcul de height/width */
+  backdrop-filter: blur(5px); /* Efecte blur al fons del modal */
+}
+
+/* Modal Content - Ajustem la mida i el padding per al contingut de descripció */
+.modal-content {
+  background-color: #fefefe; /* Fons blanc per defecte */
+  /* Gradient de fons subtil per donar-li un toc més modern */
+  background-image: linear-gradient(to bottom, #fefefe, #eef3f6);
+  margin: auto;
+  padding: 30px; /* Augmentem el padding intern */
+  border: 1px solid #888;
+  width: 90%; /* Ample més gran per millorar la llegibilitat */
+  max-width: 900px; /* Ample màxim augmentat per a escriptoris */
+  border-radius: 12px; /* Vores arrodonides una mica més grans */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Ombra més pronunciada i moderna */
+  position: relative; /* Per posicionar el botó de tancar */
+  color: #333; /* Color de text dins del modal */
+  text-align: left; /* Alineació del text a l'esquerra per defecte dins del modal */
+  font-family: 'Poppins', sans-serif; /* Font més moderna per al contingut del modal */
+  line-height: 1.7; /* Millora la llegibilitat general del text */
+  animation: fadeInModal 0.3s ease-out; /* Animació d'aparició */
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* El botó de tancar */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 38px; /* Més gran i visible */
+  font-weight: bold;
+  position: absolute; /* Posicionament absolut respecte al modal-content */
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 10; /* Assegura que estigui per sobre del text */
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.close:hover,
+.close:focus {
+  color: #dc3545; /* Color vermell al passar el ratolí per indicar tancar */
+  transform: rotate(90deg); /* Petita rotació per a l'efecte hover */
+  text-decoration: none;
+}
+
+/* Estils per als títols dins del modal */
+.modal-content h1 {
+  /* Títol "ChemiQuiz" dins del modal */
+  font-size: 3em; /* Mida més gran */
+  color: #1e3a8a; /* Blau fosc intens */
+  margin-bottom: 25px;
+  border-bottom: 3px solid #3498db; /* Línia més gruixuda */
+  padding-bottom: 12px;
+  display: inline-block;
+  text-transform: uppercase; /* Per destacar-lo com a títol principal del modal */
+  letter-spacing: 1.5px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Ombra de text subtil */
+  /* Reiniciem els estils que s'apliquen a l'h1 principal per defecte */
+  font-family: 'Poppins', sans-serif; /* O la que vulguis per al modal */
+  text-shadow: none;
+  letter-spacing: normal;
+  transition: none;
+}
+
+.modal-content h2 {
+  /* Subtítols com "Descripció", "Característiques principals", etc. */
+  font-size: 2em; /* Més gran */
+  color: #2e86c1; /* Blau més clar i viu */
+  margin-top: 40px;
+  margin-bottom: 15px;
+  text-transform: capitalize; /* Només la primera lletra en majúscula */
+  letter-spacing: 1px;
+  font-weight: 700;
+  position: relative; /* Per a la línia decorativa */
+  padding-left: 15px;
+}
+.modal-content h2::before {
+  /* Línia decorativa al costat del h2 */
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 80%;
+  background-color: #3498db;
+  border-radius: 3px;
+}
+
+.modal-content h3 {
+  /* Sub-subtítols com "Exploració dels elements", "Modes d'aprenentatge" */
+  font-size: 1.4em;
+  color: #34495e;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.modal-content h4 {
+  /* Sub-sub-subtítols com "Qüestionaris", "De memòria" */
+  font-size: 1.2em;
+  color: #555;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+/* Estils per a CADA PARÀGRAF (recuadre individual) */
+.modal-content p {
+  font-size: 1em;
+  line-height: 1.8; /* Més espaiat per a millor llegibilitat dins del recuadre */
+  margin-bottom: 20px; /* Marge entre recuadre i recuadre */
+  color: #555;
+  background-color: #fcfcfc; /* Fons lleugerament diferent per al recuadre */
+  border: 1px solid #e0e0e0; /* Borde subtil */
+  border-left: 5px solid #a7d9f7; /* Borde esquerre de color blau clar */
+  padding: 15px 20px; /* Padding intern del recuadre */
+  border-radius: 8px; /* Vores arrodonides del recuadre */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombra lleugera */
+  transition: box-shadow 0.3s ease;
+}
+
+.modal-content p:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra més gran al passar el ratolí */
+}
+
+
+/* Estils per a les llistes dins del modal */
+.modal-content ul {
+  list-style-type: none; /* Eliminem els punts per defecte */
+  margin-left: 0; /* Reiniciem el marge per controlar-lo millor */
+  margin-bottom: 15px;
+  padding-left: 20px; /* Indentació amb padding */
+  border-left: 3px solid #b3e0ff; /* Una barra decorativa a l'esquerra de les llistes */
+  background-color: #f7faff; /* Fons lleuger per a les llistes */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 8px;
+}
+
+.modal-content ul li {
+  font-size: 0.95em;
+  margin-bottom: 8px;
+  color: #444;
+  position: relative;
+  padding-left: 20px; /* Espai per a la icona personalitzada */
+}
+.modal-content ul li::before {
+  /* Icona personalitzada per als elements de llista */
+  content: "•"; /* Un cercle (o pots usar '\2022' per un bullet, '\2713' per un checkmark) */
+  color: #3498db; /* Color de la icona */
+  font-size: 1.2em;
+  position: absolute;
+  left: 0;
+  top: 0px;
+}
+
+
+/* Estils per a les sub-llistes dins del modal */
+.modal-content ul ul {
+  list-style-type: none; /* Eliminem els punts de la subllista també */
+  margin-top: 5px;
+  margin-left: 15px; /* Indentació de la subllista */
+  border-left: 2px dashed #cfe8fc; /* Borde diferent per la subllista */
+  background-color: #eaf6ff; /* Fons més clar per la subllista */
+  padding-left: 15px; /* Padding intern */
+}
+
+.modal-content ul ul li::before {
+  content: "◦"; /* Un cercle buit per a la subllista */
+  color: #2980b9; /* Color de la icona de la subllista */
+  font-size: 1.1em;
+}
+
+
+/* Estils per als enllaços dins del modal (com "Hackató 2025" o "llicència MIT") */
+.modal-content a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600; /* Més gruixut */
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.modal-content a:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+/* Estils per al text en negreta dins del modal */
+.modal-content strong {
+  font-weight: 700;
+  color: #333;
+}
+
+/* Media Queries per a pantalles més petites */
+@media (max-width: 768px) {
+  h1 {
+    /* El h1 principal */
+    font-size: 6rem;
+    letter-spacing: 3px; /* Ajusta l'espaiat per a pantalles més petites */
+  }
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  }
+  .modal-content h1 {
+    font-size: 2.2em;
+  }
+  .modal-content h2 {
+    font-size: 1.6em;
+  }
+  .modal-content h3 {
+    font-size: 1.2em;
+  }
+  .modal-content p,
+  .modal-content ul li {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    /* El h1 principal */
+    font-size: 4rem;
+    letter-spacing: 2px; /* Ajusta l'espaiat per a pantalles encara més petites */
+  }
+  button {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+  }
+  .modal-content h1 {
+    font-size: 1.8em;
+  }
+  .modal-content h2 {
+    font-size: 1.4em;
+  }
+  .modal-content h3 {
+    font-size: 1.1em;
+  }
+  .modal-content p,
+  .modal-content ul li {
+    font-size: 0.9em;
+  }
+}
+
+/* --- Estils per als botons de la Pàgina Principal (inclòs "Tornar a l'inici" si té aquesta classe) --- */
+.button {
+  /* Restableix alguns valors per si hi havia herència indesitjada */
+  appearance: none;
+  border: none;
+  outline: none;
+
+  /* --- CANVIS PER A ESTIL MÉS SERIÓS I ELEGANT --- */
+  background-color: #1a237e; /* Blau fosc profund, consistent amb els títols de la taula */
+  color: white; /* Text blanc */
+  padding: 18px 45px; /* Padding ajustat per una mida còmoda */
+  margin: 15px; /* Marges per separar els botons */
+  font-size: 24px; /* Mida de font visible */
+  font-weight: 600; /* Menys negreta que abans, més suau */
+  border-radius: 8px; /* Vores lleugerament menys arrodonides */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transició suau, però més ràpida i subtil */
+
+  width: auto; /* L'amplada s'ajusta al contingut i al padding */
+  min-width: 220px; /* Amplada mínima perquè no sigui massa petit */
+  max-width: 90%; /* Limita l'amplada màxima */
+  box-sizing: border-box; /* Inclou padding i border en l'amplada total */
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombra més subtil i professional */
+  text-shadow: none; /* Eliminem l'ombra de text */
+  letter-spacing: 0.8px; /* Espaiat entre lletres subtil */
+  text-transform: uppercase; /* Text en majúscules per serietat */
+  position: relative; /* Mantingut per si es volen efectes futurs, però sense efecte ::before */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Blau fosc lleugerament més clar al passar el ratolí */
+  transform: translateY(-3px); /* Elevació subtil, menys pronunciada */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Ombra més visible al passar el ratolí */
+}
+
+/* Eliminem l'efecte de resplendor que es movia, ja que no encaixa amb la serietat */
+.button::before {
+  content: none; /* Desactivem completament el pseudo-element ::before */
+}

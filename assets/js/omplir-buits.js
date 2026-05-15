@@ -546,3 +546,6 @@ function stopSaveStatus() {
   clearInterval(intervalStatus);
   intervalStatus = null;
 }
+
+window.reiniciarJoc = reiniciarJoc;
+window.tornarEnrereEnJoc = tornarEnrereEnJoc;

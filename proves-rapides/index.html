@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChemiQuiz: Recopilació</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/proves-rapides.css" />
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
     <!-- Font Poppins per a una estètica moderna -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   </head>
@@ -43,7 +43,7 @@
 
         <button type="submit">Començar joc</button>
         <br /><br /><br />
-        <a href="../jocs" style="text-decoration: none;" class="element-tornar">TORNAR A JOCS</a>
+        <a href="../jocs/index.html" style="text-decoration: none;" class="element-tornar">TORNAR A JOCS</a>
       </form>
     </section>
 
@@ -52,7 +52,7 @@
       <div id="crono"></div>
       <div id="zonaDrop" class="zona-general-drop"></div>
       <div id="zonaElements" class="zona-general-elements"></div>
-      <button onclick="tornarEnrereEnJoc()" class="element-tornar">
+      <button type="button" onclick="window.tornarEnrereEnJoc()" class="element-tornar">
         Tornar al Menú
       </button>
     </section>
@@ -66,7 +66,7 @@
       <!-- Aquest div s'utilitzarà per opcions de resposta o input de text -->
       <div id="opcionsRespostes"></div>
       <button id="botoSeguentPregunta" class="boto-joc" style="display: none;">Següent Pregunta</button>
-      <button onclick="tornarEnrereEnJoc()" class="element-tornar">
+      <button type="button" onclick="window.tornarEnrereEnJoc()" class="element-tornar">
         Tornar al Menú
       </button>
     </section>
@@ -74,9 +74,9 @@
     <section id="resultat" style="display: none">
       <h2>Resultat Final</h2>
       <p id="missatgeFinal"></p>
-      <button onclick="reiniciarJoc()" class="element-tornar">Tornar al Menú</button>
+      <button type="button" onclick="window.reiniciarJoc()" class="element-tornar">Tornar al Menú</button>
     </section>
 
-    <script src="script.js"></script>
+    <script src="../assets/js/proves-rapides.js"></script>
   </body>
 </html>

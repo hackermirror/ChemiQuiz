@@ -1487,7 +1487,10 @@ function stopSaveStatus() {
 //carregar tipus preguntes
 [...new Set(questions.map((q) => q.tipus))].forEach((opcio) => {
   const option = document.createElement("option");
+
   option.value = opcio;
   option.textContent = opcio;
   document.getElementById("tipus_preguntes").appendChild(option);
 });
+
+window.reiniciarJoc = reiniciarJoc;

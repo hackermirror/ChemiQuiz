@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>ChemiQuiz: Memòria amb imatges</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/memoria-imatges.css" />
+    <script src="../assets/js/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <h1>ChemiQuiz: Memòria amb imatges</h1>
@@ -37,7 +37,7 @@
 
         <button type="submit">Començar joc</button>
         </br></br></br>
-        <a href="../jocs" style="text-decoration: none;" class="element">TORNAR A JOCS</a>
+        <a href="../jocs/index.html" style="text-decoration: none;" class="element">TORNAR A JOCS</a>
       </form>
     </section>
 
@@ -47,16 +47,16 @@
       <div class="contenidor-drop" id="zonaDrop"></div>
       <div class="contenidor-elements" id="zonaElements"></div>
       <br><br>
-      <button onclick="reiniciarJoc()" class="element boto-retorn">Tornar al Menú</button>
+      <button type="button" onclick="window.reiniciarJoc()" class="element boto-retorn">Tornar al Menú</button>
     </section>
 
     <!-- Resultats -->
     <section id="resultat" style="display: none">
       <h2>Resultat Final</h2>
       <p id="missatgeFinal"></p>
-      <button onclick="reiniciarJoc()" class="element">Tornar al Menú</button>
+      <button type="button" onclick="window.reiniciarJoc()" class="element">Tornar al Menú</button>
     </section>
 
-    <script src="script.js"></script>
+    <script src="../assets/js/memoria-imatges.js"></script>
   </body>
 </html>

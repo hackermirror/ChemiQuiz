@@ -1,0 +1,477 @@
+﻿/* Styling for the overall body and background */
+body {
+  font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa; /* Unified background color */
+  margin: 0;
+  padding: 40px; /* Keep padding from the first block */
+  text-align: center;
+  color: #374151; /* Soft dark gray unified */
+  background: url("https://img.freepik.com/vector-gratis/papel-tapiz-fondo-abstracto-vector-patron-circulo-geometrico-gris_53876-140223.jpg?semt=ais_hybrid&w=740")
+    no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  color: rgb(0, 0, 0); /* This color is for the default body text if used. Element text (h1, form, etc.) will override it. */
+}
+
+/* Heading style */
+h1 {
+  color: #2563eb; /* Soft blue unified */
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 1.5px; /* Unified letter spacing */
+  text-transform: uppercase;
+  text-shadow: none; /* No text shadow unified */
+}
+
+/* Section styling - now only handles width and centering, no background or shadows */
+section {
+  background-color: transparent; /* Transparent background to avoid double box */
+  padding: 0; /* No padding on the section to avoid additional space */
+  border-radius: 0; /* No border-radius on the section */
+  box-shadow: none; /* No shadow on the section */
+  width: 90%;
+  max-width: 600px; /* The section continues to limit the maximum width */
+  text-align: center;
+  margin: 20px auto; /* Center the section horizontally */
+  position: relative; /* Added for absolute positioning of child elements */
+}
+
+/* Form Styles - Unified (NOW WITH BACKGROUNDS AND SHADOWS) */
+#formulari form,
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff; /* White background for the FORM */
+  padding: 24px 32px; /* Unified padding for the FORM */
+  border-radius: 12px; /* Unified border-radius for the FORM */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Unified shadow for the FORM */
+  transition: box-shadow 0.3s ease;
+  max-width: 320px; /* Unified maximum width */
+  width: 100%; /* Unified width */
+  margin: auto; /* Keep auto margin to center within the section */
+}
+
+#formulari form:hover,
+form:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* Unified hover shadow */
+}
+
+/* Label styling for form elements */
+#formulari label,
+label {
+  margin-bottom: 12px; /* Adjusted to 12px for unification */
+  font-size: 16px; /* Adjusted to 16px for unification */
+  cursor: pointer; /* Unified cursor */
+  font-weight: 600;
+  color: #374151; /* Unified text color */
+  user-select: none; /* Unified user-select */
+  display: flex; /* Flex display for unified layout */
+  align-items: center; /* Unified vertical centering */
+  gap: 8px; /* Unified gap */
+  text-align: left; /* Keep text-align left from the first block */
+}
+
+/* Select box styling */
+#formulari select,
+select {
+  width: 100%;
+  padding: 10px 12px; /* Unified padding */
+  font-size: 16px; /* Adjusted to 16px for unification */
+  border: 1.5px solid #d1d5db; /* Unified border color */
+  border-radius: 8px; /* Unified border-radius */
+  background-color: #f9fafb; /* Unified background color */
+  color: #374151; /* Unified text color */
+  appearance: none; /* Remove default browser styling */
+  cursor: pointer;
+  box-shadow: none; /* No default shadow */
+  transition: border-color 0.3s ease;
+  margin-top: 5px; /* Keep margin-top from the first block */
+}
+
+#formulari select:hover,
+#formulari select:focus,
+select:hover,
+select:focus {
+  border-color: #2563eb; /* Unified border color hover/focus */
+  outline: none;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.4); /* Unified hover/focus shadow */
+}
+
+/* Unified button style */
+button[type="submit"],
+.opcio-resposta,
+.boto-joc,
+#resultat button,
+.option,
+#checkAnswerBtn { /* Added #checkAnswerBtn */
+  background-color: #2563eb; /* Unified background color */
+  color: #ffffff; /* Unified text color */
+  font-size: 18px; /* Unified font size */
+  font-weight: 700; /* Unified font weight */
+  padding: 12px 36px; /* Unified padding for submit buttons */
+  border: none;
+  border-radius: 24px; /* Unified border-radius */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Unified transition */
+  user-select: none; /* Unified user-select */
+  letter-spacing: 2px; /* Unified letter spacing */
+  text-transform: uppercase;
+  margin-top: 20px; /* Default top margin, can be overridden */
+  min-width: 120px; /* Unified minimum width for options/buttons */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Unified shadow */
+}
+
+button[type="submit"]:hover,
+.opcio-resposta:hover:not(:disabled),
+.boto-joc:hover,
+#resultat button:hover,
+.option:hover,
+#checkAnswerBtn:hover { /* Added #checkAnswerBtn:hover */
+  background-color: #1e40af; /* Unified hover background color */
+  transform: scale(1.05); /* Unified hover transformation */
+}
+
+/* Specific adjustments for certain buttons */
+.opcio-resposta,
+.option {
+  padding: 14px 28px; /* Slightly different padding for question options */
+  border-radius: 12px;
+  margin-top: 0; /* Remove top margin for options in their flex container */
+}
+
+.boto-joc {
+  padding: 10px 15px;
+  font-size: 1em;
+  border-radius: 5px;
+  margin-top: 10px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+#formulari a.element-tornar, /* Changed to element-tornar for consistency */
+.element-tornar { /* Changed to element-tornar for consistency */
+  background-color: #6c757d; /* Keep color from the first block */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* Unified top margin */
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: normal; /* Override button font weight */
+  box-shadow: none; /* Override button shadow */
+}
+
+#formulari a.element-tornar:hover, /* Changed to element-tornar for consistency */
+.element-tornar:hover { /* Changed to element-tornar for consistency */
+  background-color: #5a6268;
+}
+
+/* Adjust padding for game sections to ensure content is not overlapped */
+#joc, #seccioPregunta {
+    padding-top: 80px; /* Increased padding-top to make space for the absolutely positioned info bar */
+    padding-bottom: 20px; /* Maintain existing bottom padding for buttons */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Centering */
+    max-width: 600px; /* Same max-width as form */
+    width: 90%;
+    position: relative; /* Crucial: Establishes a positioning context for absolute children */
+}
+
+/* Top Info Bar Container - positioned absolutely within its parent section */
+#topInfoBar {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: absolute; /* Position relative to the parent section (#joc or #seccioPregunta) */
+    top: 20px; /* Distance from the top of the parent section */
+    left: 0;
+    right: 0;
+    z-index: 10; /* Ensure it's above other content if anything overlaps */
+    /* Remove margins that conflicted with positioning */
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* Global Game Progress Timer (crono) - Blue box for question count */
+#crono {
+  background-color: #2563eb; /* Blue background */
+  color: white;
+  padding: 10px 15px; /* Adjust padding for desired height */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 20px; /* Consistent font size */
+  font-weight: 700;
+  display: inline-block; /* Make it respect padding/margins and sit inline */
+  user-select: none;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  margin: 0; 
+  min-width: unset; 
+}
+
+/* Per-Question Timer (cronoPregunta) - Red box for countdown */
+#cronoPregunta {
+  background-color: #ef4444; /* Red background */
+  color: white;
+  padding: 10px 15px; /* Same padding as #crono for consistent height */
+  border-radius: 12px; /* Rounded corners */
+  font-size: 20px; /* Consistent font size */
+  font-weight: 700;
+  display: inline-block; /* Make it respect padding/margins and sit inline */
+  user-select: none;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin-left: 10px; /* Space between blue and red boxes */
+  position: static; /* Ensure it respects flow within its flex parent (#topInfoBar) */
+  top: unset;
+  right: unset;
+  min-width: unset;
+  text-align: center;
+  gap: unset;
+}
+
+/* Rule to ensure the first content element after topInfoBar has no extra top margin */
+/* This rule is not needed anymore because topInfoBar is absolute and doesn't affect flow */
+/* #joc > *:not(#topInfoBar):first-child, */
+/* #seccioPregunta > *:not(#topInfoBar):first-child { */
+/* margin-top: 0 !important; */
+/* } */
+
+
+.zona-general-drop,
+.zona-general-elements,
+.contenidor-drop,
+.contenidor-elements {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* Keep gap from the first block */
+  margin: 20px auto; /* Added horizontal margins and centering */
+  padding: 15px; /* Keep padding from the first block */
+  border: 2px dashed #a0a0a0; /* Keep border from the first block */
+  border-radius: 8px; /* Keep border-radius from the first block */
+  min-height: 120px; /* Keep min-height from the first block */
+  background-color: #e9ecef; /* Keep background-color from the first block */
+  gap: 20px; /* From the second bloc for containers */
+}
+
+/* For drag-and-drop elements within .zona-general-drop or .contenidor-drop */
+.zona-drop {
+  width: 110px; /* Unified width */
+  height: 110px; /* Unified height */
+  background-color: #e5e7eb; /* Unified background color */
+  border: 2px dashed #9ca3af; /* Unified border */
+  border-radius: 12px;
+  font-size: 22px; /* Unified font size */
+  color: #6b7280; /* Unified text color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.zona-drop.dragover {
+  background-color: #dbeafe; /* Unified background color */
+  border-color: #3b82f6; /* Unified border color */
+  color: #2563eb; /* Unified text color */
+}
+
+.element {
+  width: 100px; /* Keep width from the first block */
+  height: 60px; /* Keep height from the first block */
+  background-color: #2563eb; /* Unified background color */
+  color: #ffffff; /* Unified text color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em; /* Keep font size from the first block */
+  font-weight: bold; /* Keep font weight from the first block */
+  border-radius: 5px; /* Keep border-radius from the first block */
+  cursor: grab;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Keep shadow from the first block */
+  transition: background-color 0.3s ease, opacity 0.3s ease,
+    transform 0.2s ease; /* Combined transition */
+  border: 0; /* Keep border: 0 from the first block */
+  user-select: none; /* Unified user-select */
+  padding: 14px 24px; /* Padding from the second block for general elements */
+  border-radius: 16px; /* Border-radius from the second block for general elements */
+}
+
+.element-tornar {
+  background-color: #2563eb; /* Unified background color */
+  color: #ffffff; /* Unified text color */
+  padding: 14px 24px; /* Unified padding */
+  border-radius: 16px;
+  cursor: pointer; /* Changed to pointer as it's a button/link */
+  font-size: 18px; /* Mida de font unificada */
+  font-weight: 600;
+  box-shadow: none; /* No shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none; /* User-select unificat */
+  border: 0; /* Manté border: 0 del primer bloc */
+}
+
+.element:hover {
+  background-color: #1e40af; /* Unified hover background color */
+  transform: scale(1.05); /* Unified transformation */
+}
+
+.zona-drop.encert {
+  background-color: #22c55e !important; /* Unified green */
+  border-color: #28a745; /* Keep border-color from the first block */
+  color: #14532d !important; /* Unified dark green */
+  box-shadow: 0 0 10px #22c55e !important;
+}
+
+.zona-drop.error {
+  background-color: #ef4444 !important; /* Unified red */
+  border-color: #dc3545; /* Keep border-color from the first block */
+  color: #7f1d1d !important; /* Unified dark red */
+  box-shadow: 0 0 10px #ef4444 !important;
+}
+
+.desactived {
+  opacity: 0.5; /* Keep opacity from the first block */
+  cursor: not-allowed;
+  pointer-events: none; /* Crucial to prevent future drag events */
+  background-color: #c9e3ff !important; /* Keep background-color from the first block */
+  color: #1e3a8a; /* Keep color from the first block */
+  padding: 12px 20px; /* Keep padding from the first block */
+  border-radius: 16px; /* Keep border-radius from the first block */
+  font-size: 16px; /* Keep font size from the first block */
+  font-weight: 600; /* Keep font weight from the first block */
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Multiple Choice Question Section */
+#seccioPregunta {
+  padding: 20px;
+  background-color: #f0f8ff; /* AliceBlue */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#textPregunta,
+#question {
+  font-size: 24px; /* Unified font size */
+  font-weight: 600;
+  color: #1e40af; /* Unified color */
+  margin-bottom: 24px; /* Unified margin */
+  user-select: none;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Input for fill-in-the-blank questions */
+#fillInBlankInput {
+    padding: 5px 8px; /* Smaller padding for inline look */
+    font-size: 18px;
+    border: 1.5px solid #d1d5db;
+    border-radius: 6px; /* Slightly smaller border-radius */
+    background-color: #f9fafb;
+    color: #374151;
+    width: auto; /* Let content dictate width initially */
+    min-width: 80px; /* Minimum width for visibility */
+    max-width: 250px; /* Max width to prevent it from getting too long */
+    margin: 0 5px; /* Small horizontal margin to separate from text, no vertical margin */
+    display: inline-block; /* Crucial for inline positioning */
+    vertical-align: middle; /* Align with text baseline */
+    box-shadow: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#fillInBlankInput:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+}
+
+/* Styles for correct/incorrect fill-in-the-blank input */
+#fillInBlankInput.correcta-input {
+    background-color: #d4edda !important; /* Light green */
+    border-color: #28a745 !important; /* Green border */
+    color: #14532d !important; /* Darker green text */
+}
+
+#fillInBlankInput.incorrecta-input {
+    background-color: #f8d7da !important; /* Light red */
+    border-color: #dc3545 !important; /* Red border */
+    color: #7f1d1d !important; /* Darker red text */
+}
+
+#opcionsRespostes,
+#options {
+  display: flex;
+  flex-direction: column; /* Keep flex-direction from the first block */
+  gap: 10px; /* Keep gap from the first block */
+  margin-bottom: 20px; /* Keep margin-bottom from the first block */
+  justify-content: center; /* From #options */
+  flex-wrap: wrap; /* From #options */
+  gap: 16px; /* From #options, overriding 10px if necessary */
+}
+
+.opcio-resposta.correcta {
+  background-color: #28a745; /* Green for correct */
+}
+
+.opcio-resposta.incorrecta {
+  background-color: #dc3545; /* Red for incorrect */
+}
+
+#feedback {
+  font-size: 20px;
+  font-weight: 600;
+  min-height: 30px;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+#scoreboard {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 24px;
+  user-select: none;
+}
+
+/* Final Results */
+#resultat {
+  max-width: 480px; /* Unified maximum width */
+  margin: 0 auto;
+  background: #ffffff; /* Unified background */
+  padding: 32px; /* Unified padding */
+  border-radius: 16px; /* Unified border-radius */
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+}
+
+#resultat h2 {
+  color: #2563eb; /* Unified color */
+  margin-bottom: 16px; /* Unified margin */
+}
+
+#resultat p {
+  font-size: 20px; /* Unified font size */
+  margin-bottom: 32px; /* Unified margin */
+  color: #374151; /* Unified color */
+}
+
+.element-tornar.orange { /* Changed to element-tornar for consistency */
+  background-color: #f0ad4e; /* Orange */
+  color: white;
+}
+
+.element-tornar.orange:hover { /* Changed to element-tornar for consistency */
+  background-color: #ec971f; /* Darker orange */
+}
+
+

@@ -1,0 +1,445 @@
+﻿/* Importem una font de Google Fonts per a un look més modern */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif; /* Font principal */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0; /* Eliminem el marge del body per control total */
+  padding: 30px 20px; /* Padding general per a l'espaiat */
+  background-color: #f0f2f5; /* Tornem al color de fons anterior */
+  color: #333;
+  /* Fons que hi havia abans: */
+  background: url("https://img.freepik.com/vector-gratis/papel-tapiz-fondo-abstracto-vector-patron-circulo-geometrico-gris_53876-140223.jpg?semt=ais_hybrid&w=740")
+    no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Overlay subtil per a la imatge de fons (adaptat al nou fons) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.4); /* Capa blanca semi-transparent */
+  z-index: -1;
+  pointer-events: none; /* Assegura que no interfereix amb els clics */
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif; /* Font destacada per al títol */
+  color: #1a237e; /* Blau fosc intens */
+  margin-bottom: 40px;
+  font-size: 3.5em; /* Mida gran */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Ombra per profunditat */
+}
+
+.main-container {
+  display: flex; /* Activem Flexbox per col·locar la taula i el panell costat per costat */
+  justify-content: center; /* Centra els elements (taula i panell) horitzontalment */
+  align-items: stretch; /* CLAU: Fa que els elements fills (taula i panell) tinguin la mateixa alçada */
+  gap: 40px; /* Més espai entre la taula i el panell */
+  width: 100%; /* El contenidor principal ocupa el 100% de l'ample disponible */
+  /* max-width: 1500px; - Eliminat per permetre més flexibilitat en amplades grans */
+  flex-wrap: wrap; /* Permet que els elements saltin de línia en pantalles petites */
+  padding: 20px; /* Padding general per al contenidor principal */
+}
+
+.taula {
+  display: grid;
+  grid-template-columns: repeat(18, 50px); /* Ajustat a 50px per cel·la */
+  grid-template-rows: repeat(9, 50px); /* Ajustat a 50px per cel·la */
+  gap: 6px;
+  border: 2px solid #aec6cf; /* Borde més subtil */
+  padding: 15px; /* Més padding */
+  background-color: rgba(255, 255, 255, 0.95); /* Fons gairebé blanc amb lleugera transparència */
+  border-radius: 15px; /* Vores més arrodonides */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Ombra més profunda */
+  backdrop-filter: blur(8px); /* Efecte blur per al fons de la taula */
+  position: relative;
+  z-index: 1; /* Assegura que estigui per sobre de l'overlay del body */
+  flex-shrink: 0; /* Evita que la taula es redueixi massa */
+}
+
+.element {
+  width: 50px; /* Ajustat a 50px */
+  height: 50px; /* Ajustat a 50px */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Borde més suau */
+  border-radius: 8px; /* Vores arrodonides per als elements */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px; /* Mida de font ajustada */
+  position: relative;
+  transition: all 0.2s ease-in-out, box-shadow 0.3s ease; /* Transicions més suaus */
+  box-sizing: border-box;
+  overflow: hidden; /* Assegura que el text no sobresurti si és gran */
+  color: #1e293b; /* Color del text per defecte */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Ombra subtil per a cada element */
+}
+
+.atomic-number {
+  font-size: 9px; /* Més petit per no molestar */
+  position: absolute;
+  top: 3px; /* Posicionament ajustat */
+  left: 3px; /* Posicionament ajustat */
+  color: #555;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
+.element strong { /* Símbol */
+  font-size: 22px; /* Símbol més gran */
+  line-height: 1;
+  color: #1a237e; /* Color blau fosc per als símbols */
+  text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
+}
+
+/* Oculta per defecte la informació dins de cada element, ja que la movem al panell */
+.element .info {
+  display: none;
+}
+
+.element:hover {
+  transform: translateY(-5px); /* Efecte d'elevació en passar el ratolí */
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Ombra més pronunciada */
+  border-color: #007bff; /* Borde blavós al passar el ratolí */
+}
+
+/* Estil per a l'element seleccionat */
+.element.selected {
+  transform: scale(1.08) translateY(-3px); /* L'element seleccionat es fa lleugerament més gran i s'eleva */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border: 2px solid #0056b3; /* Borde més fosc per indicar selecció */
+  z-index: 12;
+}
+
+
+/* --- Estils per a cada tipus d'element (colors més vibrants i consistents) --- */
+.alcalins { background-color: #FF7043; color: white; } /* Taronja-vermell */
+.alcalinoterris { background-color: #FFCA28; color: #333; } /* Groc-taronja */
+.metalls_transicio { background-color: #4CAF50; color: white; } /* Verd esmeralda */
+.altres_metalls { background-color: #26C6DA; color: white; } /* Blau turquesa */
+.metalloides { background-color: #AB47BC; color: white; } /* Lila */
+.no_metalls { background-color: #78909C; color: white; } /* Gris blavós */
+.halogenos { background-color: #EF5350; color: white; } /* Vermell viu */
+.gasos_nobles { background-color: #66BB6A; color: white; } /* Verd clar */
+.lantanids { background-color: #BA68C8; color: white; } /* Malva */
+.actinids { background-color: #7986CB; color: white; } /* Blau-violeta */
+.element.unknown { background-color: #B0BEC5; color: #666; } /* Gris per elements desconeguts/no categoritzats */
+/* Ajustament de color de text per als colors de fons clars */
+.alcalinoterris strong, .alcalinoterris .atomic-number, .alcalinoterris { color: #333; }
+.alcalinoterris:hover { color: #111; } /* Més fosc en hover */
+
+
+/* --- ESTILS CLAU PER AL PANELL D'INFORMACIÓ LATERAL --- */
+#info-panel {
+  flex-grow: 1; /* Permet que el panell creixi */
+  flex-basis: 350px; /* Amplada base del panell */
+  padding: 25px; /* Més padding */
+  border: 2px solid #007bff;
+  border-radius: 12px; /* Vores més arrodonides */
+  background-color: rgba(232, 244, 253, 0.98); /* Fons blau molt clar, gairebé opac */
+  color: #333;
+  font-size: 17px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Ombra més pronunciada */
+  display: flex;
+  flex-direction: column;
+  align-self: stretch; /* CLAU: Fa que el panell s'estiri per igualar l'alçada de la taula */
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out; /* Transició per canvis de mida/posició */
+  border-left: 8px solid #0056b3; /* Borde esquerre destacat */
+}
+
+#resum {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* Més gruixut */
+  font-size: 20px; /* Més gran */
+  color: #1a237e; /* Blau fosc */
+  margin-bottom: 20px;
+  text-align: center; /* Manté el títol centrat */
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #c0d9e8; /* Línia sota el títol */
+  padding-bottom: 10px;
+}
+
+#info-display {
+  padding: 10px 0;
+  text-align: left; /* Alineem el text a l'esquerra dins del panell */
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Espai entre cada línia d'informació */
+  flex-grow: 1; /* CLAU: Permet que la llista d'informació ocupi l'espai disponible */
+  justify-content: flex-start; /* Alinea el contingut a la part superior */
+}
+
+/* Estil per a cada línia de text dins d'info-display (recuadre per a cada propietat) */
+#info-display div {
+  padding: 10px 15px; /* Padding intern */
+  background-color: #e3f2fd; /* Fons blau clar per a cada línia */
+  border-left: 4px solid #64b5f6; /* Borde esquerre per a cada propietat */
+  border-radius: 6px;
+  font-size: 1em; /* Mida de font */
+  line-height: 1.4;
+  color: #444;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Ombra molt lleugera */
+  display: flex; /* Permet espaiar el títol de la propietat del valor */
+  justify-content: space-between; /* Alinea títol a esquerra, valor a dreta */
+  align-items: center;
+}
+
+#info-display div strong { /* El nom de la propietat (ex: "Nom:", "Símbol:") */
+    color: #1a237e; /* Blau fosc */
+    font-weight: 600;
+    min-width: 80px; /* Assegura una amplada mínima per als noms de propietat */
+}
+
+#info-display div span { /* El valor de la propietat */
+    color: #333;
+    text-align: right; /* Alinea el valor a la dreta */
+    flex-grow: 1; /* Permet que el valor ocupi l'espai restant */
+}
+
+
+/* --- Botó de Tornar a l'Inici --- */
+.back-button {
+  background-color: #007bff; /* Blau vibrant */
+  color: white;
+  padding: 15px 30px; /* Més padding per fer-lo més gran */
+  border-radius: 10px; /* Vores arrodonides */
+  cursor: pointer;
+  font-size: 18px; /* Mida de font més gran */
+  font-weight: 700; /* Més gruixut */
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  border: none;
+  margin-top: auto; /* Empeny el botó cap avall dins del panell */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Ombra més prominent */
+  letter-spacing: 0.5px; /* Espai entre lletres */
+}
+
+.back-button:hover {
+  background-color: #0056b3; /* Blau més fosc al passar el ratolí */
+  transform: translateY(-4px); /* Efecte d'elevació més pronunciat */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35); /* Ombra més gran al passar el ratolí */
+}
+
+
+/* --- Media Queries per a dissenys responsius --- */
+@media (max-width: 1399px) { /* El punt de trencament abans era 1200px, ara s'adapta al nou càlcul */
+  .main-container {
+    flex-direction: column; /* Apila la taula i el panell en columnes */
+    align-items: center; /* Centra els elements apilats */
+    gap: 30px; /* Ajustem l'espai entre la taula i el panell apilats */
+  }
+
+  .taula {
+    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr)); /* La taula s'adapta millor, lleugerament més petits */
+    max-width: 95%; /* La taula ocupa gairebé tota l'amplada */
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .element {
+    width: auto; /* Permet que l'ample s'ajusti automàticament */
+    height: 48px; /* Manté l'alçada */
+    font-size: 13px;
+  }
+  .element strong {
+    font-size: 20px;
+  }
+  .atomic-number {
+    font-size: 9px;
+  }
+
+  #info-panel {
+    width: 90%; /* El panell ocupa més amplada */
+    max-width: 600px; /* Limita la seva amplada en pantalles més grans */
+    align-self: center; /* Centra el panell horitzontalment */
+    /* Quan està en columna, ja no necessita estirar-se per l'alçada */
+    align-self: auto;
+    min-height: 180px; /* Alçada mínima per evitar col·lapse */
+    margin-top: 0; /* No hi ha marge superior addicional */
+  }
+  #info-display div {
+      font-size: 0.95em;
+      padding: 8px 12px;
+  }
+  .back-button {
+      margin-top: 30px; /* Restaura el marge superior quan no està estirat per Flexbox */
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em; /* Títol més petit */
+    margin-bottom: 25px;
+  }
+  .taula {
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr)); /* Elements més petits */
+    gap: 3px;
+    padding: 8px;
+    max-width: 100%;
+  }
+  .element {
+    height: 38px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  .atomic-number {
+    font-size: 8px;
+    top: 2px;
+    left: 2px;
+  }
+  .element strong {
+    font-size: 18px;
+  }
+
+  #info-panel {
+    min-width: unset; /* Reiniciem el min-width per a pantalles petites */
+    width: 100%; /* Ocupa tota l'amplada en mòbils */
+    padding: 15px;
+    font-size: 15px;
+    border-left: 5px solid #0056b3; /* Borde esquerre més prim */
+  }
+  #resum {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  #info-display div {
+      font-size: 0.9em;
+      padding: 6px 10px;
+  }
+  #info-display div strong {
+      min-width: 70px;
+  }
+  .back-button {
+      padding: 12px 25px; /* Més petit en mòbils */
+      font-size: 16px;
+      margin-top: 25px; /* Ajusta el marge superior per al botó en mòbils */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .taula {
+    gap: 2px;
+    padding: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(32px, 1fr)); /* Elements encara més petits */
+  }
+  .element {
+    height: 32px;
+    font-size: 10px;
+    border-radius: 5px;
+  }
+  .atomic-number {
+    font-size: 7px;
+  }
+  .element strong {
+    font-size: 16px;
+  }
+  #info-panel {
+    padding: 10px;
+  }
+}
+/* --- Estils per als botons de la Pàgina Principal (inclòs "Tornar a l'inici" si té aquesta classe) --- */
+.button {
+  /* Restableix alguns valors per si hi havia herència indesitjada */
+  appearance: none;
+  border: none;
+  outline: none;
+
+  /* --- CANVIS PER A ESTIL MÉS SERIÓS I ELEGANT --- */
+  background-color: #1a237e; /* Blau fosc profund, consistent amb els títols de la taula */
+  color: white; /* Text blanc */
+  padding: 18px 45px; /* Padding ajustat per una mida còmoda */
+  margin: 15px; /* Marges per separar els botons */
+  font-size: 24px; /* Mida de font visible */
+  font-weight: 600; /* Menys negreta que abans, més suau */
+  border-radius: 8px; /* Vores lleugerament menys arrodonides */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transició suau, però més ràpida i subtil */
+  
+  width: auto; /* L'amplada s'ajusta al contingut i al padding */
+  min-width: 220px; /* Amplada mínima perquè no sigui massa petit */
+  max-width: 90%; /* Limita l'amplada màxima */
+  box-sizing: border-box; /* Inclou padding i border en l'amplada total */
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombra més subtil i professional */
+  text-shadow: none; /* Eliminem l'ombra de text */
+  letter-spacing: 0.8px; /* Espaiat entre lletres subtil */
+  text-transform: uppercase; /* Text en majúscules per serietat */
+  position: relative; /* Mantingut per si es volen efectes futurs, però sense efecte ::before */
+  overflow: hidden;
+  z-index: 1; 
+}
+
+.button:hover {
+  background-color: #0056b3; /* Blau fosc lleugerament més clar al passar el ratolí */
+  transform: translateY(-3px); /* Elevació subtil, menys pronunciada */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Ombra més visible al passar el ratolí */
+}
+
+/* Eliminem l'efecte de resplendor que es movia, ja que no encaixa amb la serietat */
+.button::before {
+  content: none; /* Desactivem completament el pseudo-element ::before */
+}
+
+
+/* Media queries per a responsivitat */
+@media (max-width: 768px) {
+  .button {
+    padding: 15px 30px; /* Menys padding horitzontal */
+    font-size: 20px; /* Font lleugerament més petita */
+    min-width: 180px; /* Mínim més petit */
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    padding: 12px 25px; /* Encara menys padding */
+    font-size: 16px; /* Font encara més petita */
+    min-width: 150px; /* Mínim més petit */
+  }
+}
+
+/* ... el teu CSS existent ... */
+
+#info-display {
+  /* Pots afegir estils aquí per a la informació general */
+  text-align: center; /* Centra el text i la imatge dins del panell d'informació */
+}
+
+.atom-image {
+  max-width: 150px; /* Mida màxima de la imatge de l'àtom */
+  height: auto; /* Manté la proporció */
+  margin-top: 20px; /* Espai per sobre de la imatge */
+  border: 1px solid #ddd; /* Un petit marc per la imatge */
+  border-radius: 8px; /* Vores arrodonides */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra suau */
+}
+
+/* Si vols un estil per al missatge inicial / títol */
+#resum {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #2563eb; /* O el color que vulguis */
+    margin-bottom: 15px;
+}
