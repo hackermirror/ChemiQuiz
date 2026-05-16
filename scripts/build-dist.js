@@ -113,7 +113,6 @@ async function main() {
   mkdirp(dist);
 
   const staticDirs = [
-    'ImatgesDeFons',
     'assets/images/elements'
   ];
 

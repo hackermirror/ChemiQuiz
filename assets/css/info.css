@@ -47,14 +47,15 @@ h1 {
   gap: 40px; /* Més espai entre la taula i el panell */
   width: 100%; /* El contenidor principal ocupa el 100% de l'ample disponible */
   /* max-width: 1500px; - Eliminat per permetre més flexibilitat en amplades grans */
-  flex-wrap: wrap; /* Permet que els elements saltin de línia en pantalles petites */
+  flex-wrap: wrap; /* Permet que el panell baixi quan ja no hi cap al costat de la taula */
   padding: 20px; /* Padding general per al contenidor principal */
+  box-sizing: border-box;
 }
 
 .taula {
   display: grid;
-  grid-template-columns: repeat(18, 50px); /* Ajustat a 50px per cel·la */
-  grid-template-rows: repeat(9, 50px); /* Ajustat a 50px per cel·la */
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   gap: 6px;
   border: 2px solid #aec6cf; /* Borde més subtil */
   padding: 15px; /* Més padding */
@@ -64,12 +65,18 @@ h1 {
   backdrop-filter: blur(8px); /* Efecte blur per al fons de la taula */
   position: relative;
   z-index: 1; /* Assegura que estigui per sobre de l'overlay del body */
-  flex-shrink: 0; /* Evita que la taula es redueixi massa */
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 1200px;
+  min-width: 700px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .element {
-  width: 50px; /* Ajustat a 50px */
-  height: 50px; /* Ajustat a 50px */
+  width: auto;
+  height: auto;
+  aspect-ratio: 1 / 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,7 +85,7 @@ h1 {
   border-radius: 8px; /* Vores arrodonides per als elements */
   cursor: pointer;
   font-weight: bold;
-  font-size: 14px; /* Mida de font ajustada */
+  font-size: clamp(10px, 0.9vw, 14px);
   position: relative;
   transition: all 0.2s ease-in-out, box-shadow 0.3s ease; /* Transicions més suaus */
   box-sizing: border-box;
@@ -88,7 +95,7 @@ h1 {
 }
 
 .atomic-number {
-  font-size: 9px; /* Més petit per no molestar */
+  font-size: clamp(7px, 0.6vw, 9px);
   position: absolute;
   top: 3px; /* Posicionament ajustat */
   left: 3px; /* Posicionament ajustat */
@@ -98,7 +105,7 @@ h1 {
 }
 
 .element strong { /* Símbol */
-  font-size: 22px; /* Símbol més gran */
+  font-size: clamp(14px, 1.4vw, 22px);
   line-height: 1;
   color: #1a237e; /* Color blau fosc per als símbols */
   text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.1);
@@ -144,8 +151,8 @@ h1 {
 
 /* --- ESTILS CLAU PER AL PANELL D'INFORMACIÓ LATERAL --- */
 #info-panel {
-  flex-grow: 1; /* Permet que el panell creixi */
-  flex-basis: 350px; /* Amplada base del panell */
+  flex: 0 1 350px;
+  min-width: 320px;
   padding: 25px; /* Més padding */
   border: 2px solid #007bff;
   border-radius: 12px; /* Vores més arrodonides */
@@ -159,6 +166,7 @@ h1 {
   box-sizing: border-box;
   transition: all 0.3s ease-in-out; /* Transició per canvis de mida/posició */
   border-left: 8px solid #0056b3; /* Borde esquerre destacat */
+  box-sizing: border-box;
 }
 
 #resum {
@@ -240,38 +248,14 @@ h1 {
 
 
 /* --- Media Queries per a dissenys responsius --- */
-@media (max-width: 1399px) { /* El punt de trencament abans era 1200px, ara s'adapta al nou càlcul */
-  .main-container {
-    flex-direction: column; /* Apila la taula i el panell en columnes */
-    align-items: center; /* Centra els elements apilats */
-    gap: 30px; /* Ajustem l'espai entre la taula i el panell apilats */
-  }
-
+@media (max-width: 1180px) {
   .taula {
-    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr)); /* La taula s'adapta millor, lleugerament més petits */
-    max-width: 95%; /* La taula ocupa gairebé tota l'amplada */
-    padding: 10px;
-    gap: 4px;
-  }
-
-  .element {
-    width: auto; /* Permet que l'ample s'ajusti automàticament */
-    height: 48px; /* Manté l'alçada */
-    font-size: 13px;
-  }
-  .element strong {
-    font-size: 20px;
-  }
-  .atomic-number {
-    font-size: 9px;
+    min-width: 0;
+    max-width: 100%;
   }
 
   #info-panel {
-    width: 90%; /* El panell ocupa més amplada */
-    max-width: 600px; /* Limita la seva amplada en pantalles més grans */
-    align-self: center; /* Centra el panell horitzontalment */
-    /* Quan està en columna, ja no necessita estirar-se per l'alçada */
-    align-self: auto;
+    align-self: stretch;
     min-height: 180px; /* Alçada mínima per evitar col·lapse */
     margin-top: 0; /* No hi ha marge superior addicional */
   }
@@ -290,23 +274,14 @@ h1 {
     margin-bottom: 25px;
   }
   .taula {
-    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr)); /* Elements més petits */
-    gap: 3px;
     padding: 8px;
-    max-width: 100%;
   }
   .element {
-    height: 38px;
-    font-size: 12px;
     border-radius: 6px;
   }
   .atomic-number {
-    font-size: 8px;
     top: 2px;
     left: 2px;
-  }
-  .element strong {
-    font-size: 18px;
   }
 
   #info-panel {
@@ -340,20 +315,10 @@ h1 {
     margin-bottom: 20px;
   }
   .taula {
-    gap: 2px;
     padding: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(32px, 1fr)); /* Elements encara més petits */
   }
   .element {
-    height: 32px;
-    font-size: 10px;
     border-radius: 5px;
-  }
-  .atomic-number {
-    font-size: 7px;
-  }
-  .element strong {
-    font-size: 16px;
   }
   #info-panel {
     padding: 10px;
