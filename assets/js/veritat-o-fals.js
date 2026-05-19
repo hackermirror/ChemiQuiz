@@ -1,105 +1,18 @@
-const questionsVf = [
-  {
-    pregunta: "L'hidrogen és un metall alcalí.",
-    respostaCorrecta: false,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "L'oxigen és l'element més abundant a l'escorça terrestre.",
-    respostaCorrecta: true,
-    tipus: "Abundància",
-  },
-  {
-    pregunta: "La plata té el símbol químic 'Ag'.",
-    respostaCorrecta: true,
-    tipus: "Símbols",
-  },
-  {
-    pregunta: "Tots els gasos nobles són radioactius.",
-    respostaCorrecta: false,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "L'or és un excel·lent conductor de l'electricitat.",
-    respostaCorrecta: true,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "El mercuri és l'únic metall líquid a temperatura ambient.",
-    respostaCorrecta: true,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "El Carboni (C) és l'element base de la vida orgànica.",
-    respostaCorrecta: true,
-    tipus: "Composició",
-  },
-  {
-    pregunta: "La taula periòdica actual ordena els elements per massa atòmica.",
-    respostaCorrecta: false, // S'ordena per número atòmic
-    tipus: "Història",
-  },
-  {
-    pregunta: "El clor és un gas noble.",
-    respostaCorrecta: false, // El clor és un halògen
-    tipus: "Grups",
-  },
-  {
-    pregunta: "El ferro és un element essencial per a l'hemoglobina en la sang.",
-    respostaCorrecta: true,
-    tipus: "Biologia",
-  },
-  {
-    pregunta: "El diamant i el grafit estan fets del mateix element químic.",
-    respostaCorrecta: true, // Tots dos són formes al·lotròpiques del carboni
-    tipus: "Composició",
-  },
-  {
-    pregunta: "L'heli és més pesat que l'aire.",
-    respostaCorrecta: false,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "El sodi reacciona violentament amb l'aigua.",
-    respostaCorrecta: true,
-    tipus: "Reaccions",
-  },
-  {
-    pregunta: "El neó s'utilitza habitualment en anuncis lluminosos.",
-    respostaCorrecta: true,
-    tipus: "Aplicacions",
-  },
-  {
-    pregunta: "El plom té el símbol químic 'Pb'.",
-    respostaCorrecta: true,
-    tipus: "Símbols",
-  },
-  {
-    pregunta: "L'ozó és una molècula de tres àtoms d'oxigen.",
-    respostaCorrecta: true,
-    tipus: "Composició",
-  },
-  {
-    pregunta: "El calci és el metall més abundant a l'escorça terrestre.",
-    respostaCorrecta: false, // És l'alumini
-    tipus: "Abundància",
-  },
-  {
-    pregunta: "Tots els metalls condueixen bé la calor i l'electricitat.",
-    respostaCorrecta: true,
-    tipus: "Propietats",
-  },
-  {
-    pregunta: "Els elements del grup 18 es coneixen com a halògens.",
-    respostaCorrecta: false, // Són els gasos nobles
-    tipus: "Grups",
-  },
-  {
-    pregunta: "El fluor és l'element més electronegatiu.",
-    respostaCorrecta: true,
-    tipus: "Propietats",
-  },
-];
+const questionsVf = window.ChemiQuizI18n.content("veritat_o_fals");
+const t = window.ChemiQuizI18n.t;
+
+function scoreText(value) {
+  return t("common.score_n", { count: value });
+}
+
+function progressText(current, total) {
+  return t("common.question_of_total", { current: current, total: total });
+}
+
+function timerText(seconds) {
+  return t("common.time_remaining_seconds", { seconds: seconds });
+}
+
 
 let scoreVf = 0;
 let totalQuestionsVf = 10;
@@ -137,14 +50,14 @@ function shuffleArray(array) {
 function startTimerVf(duration) {
   clearInterval(timerIntervalVf);
   let timeLeft = duration;
-  cronoVf.textContent = `Temps restant: ${timeLeft}s`;
+  cronoVf.textContent = timerText(timeLeft);
 
   timerIntervalVf = setInterval(() => {
     timeLeft--;
-    cronoVf.textContent = `Temps restant: ${timeLeft}s`;
+    cronoVf.textContent = timerText(timeLeft);
     if (timeLeft <= 0) {
       clearInterval(timerIntervalVf);
-      feedbackVf.textContent = "Temps esgotat!";
+      feedbackVf.textContent = t("common.time_up");
       feedbackVf.classList.remove('correct-text', 'error-text');
       feedbackVf.classList.add('error-text');
       disableOptionsVf();
@@ -188,7 +101,7 @@ function getNewQuestionVf() {
 
   questionsAskedVf++;
 
-  progressDisplayVf.textContent = `Pregunta ${questionsAskedVf} de ${totalQuestionsVf}`;
+  progressDisplayVf.textContent = progressText(questionsAskedVf, totalQuestionsVf);
   questionDisplayVf.textContent = current.pregunta;
 
   // Assegura't que els botons True/False estiguin sempre presents i actius
@@ -226,17 +139,17 @@ function checkAnswerVf(selected, correct, clickedButton) {
 
 
   if (selected === correct) {
-    feedbackVf.textContent = "Correcte! 🎉";
+    feedbackVf.textContent = t("common.correct");
     feedbackVf.classList.remove('error-text');
     feedbackVf.classList.add('correct-text');
     scoreVf++;
   } else {
-    feedbackVf.textContent = `Incorrecte.`; // Simplificat
+    feedbackVf.textContent = t("common.incorrect"); // Simplificat
     feedbackVf.classList.remove('correct-text');
     feedbackVf.classList.add('error-text');
   }
 
-  scoreDisplayVf.textContent = `Puntuació: ${scoreVf}`;
+  scoreDisplayVf.textContent = scoreText(scoreVf);
 
   setTimeout(() => {
     getNewQuestionVf();
@@ -256,7 +169,7 @@ function acabarJocVf() {
   stopSaveStatusVf();
   jocVf.style.display = "none";
   resultatVf.style.display = "block";
-  missatgeFinalVf.textContent = `Has aconseguit ${scoreVf} de ${totalQuestionsVf} preguntes correctes.`;
+  missatgeFinalVf.textContent = t("vf.final_message", { score: scoreVf, total: totalQuestionsVf });
 
   // Aquí pots afegir la lògica per enviar la puntuació al servidor si la vols mantenir
   $.ajax({
@@ -281,8 +194,8 @@ function reiniciarJocVf() {
   clearInterval(timerIntervalVf);
   scoreVf = 0;
   questionsAskedVf = 0;
-  scoreDisplayVf.textContent = `Puntuació: 0`;
-  progressDisplayVf.textContent = `Pregunta 0 de 0`;
+  scoreDisplayVf.textContent = scoreText(0);
+  progressDisplayVf.textContent = progressText(0, 0);
   resultatVf.style.display = "none";
   formulariVf.style.display = "block";
   feedbackVf.textContent = "";
@@ -296,8 +209,8 @@ function tornarAlMenuVf() {
   stopSaveStatusVf();
   scoreVf = 0;
   questionsAskedVf = 0;
-  scoreDisplayVf.textContent = `Puntuació: 0`;
-  progressDisplayVf.textContent = `Pregunta 0 de 0`;
+  scoreDisplayVf.textContent = scoreText(0);
+  progressDisplayVf.textContent = progressText(0, 0);
   feedbackVf.textContent = "";
   feedbackVf.classList.remove('correct-text', 'error-text');
   cronoVf.textContent = "";
@@ -321,7 +234,7 @@ document.getElementById("configuracioJocVf").addEventListener("submit", (e) => {
   if (totalQuestionsVf > questionsVf.length) {
     totalQuestionsVf = questionsVf.length;
     alert(
-      `Només hi ha ${questionsVf.length} preguntes de Veritat o Fals disponibles. El joc es configurarà amb aquesta quantitat.`
+      t("vf.available_questions", { count: questionsVf.length })
     );
   }
 
@@ -333,8 +246,8 @@ document.getElementById("configuracioJocVf").addEventListener("submit", (e) => {
 
   scoreVf = 0;
   questionsAskedVf = 0;
-  scoreDisplayVf.textContent = `Puntuació: 0`;
-  progressDisplayVf.textContent = `Pregunta 0 de 0`;
+  scoreDisplayVf.textContent = scoreText(0);
+  progressDisplayVf.textContent = progressText(0, 0);
   feedbackVf.textContent = "";
   feedbackVf.classList.remove('correct-text', 'error-text');
   getNewQuestionVf();

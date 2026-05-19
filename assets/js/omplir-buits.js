@@ -27,113 +27,22 @@ let intervalStatus = null;
 let tempsActualPregunta = 0;
 let intervalTempsPregunta = null;
 
-const preguntesOmplirBuits = [
-  {
-    id: 1,
-    text: "El primer element de la taula periòdica és l'_HIDROGEN_, que té un _PROTÓ_ al seu nucli. És el més _LLEUGER_ de tots els elements.",
-    respostes: ["Hidrogen", "Protó", "Lleuger"],
-    tipus: "drag",
-    extraElements: ["Heli", "Electró", "Pesat", "Neutró", "Àtom"],
-  },
-  {
-    id: 2,
-    text: "La taula periòdica es va organitzar inicialment segons la massa _ATÒMICA_, però _MENDELEEV_ la va ordenar de manera que elements amb propietats _SIMILARS_ quedessin en el mateix _GRUP_.",
-    respostes: ["Atòmica", "Mendeleev", "Similars", "Grup"],
-    tipus: "type",
-    extraElements: [],
-  },
-  {
-    id: 3,
-    text: "Els elements del Grup 1 són els metalls _ALCALINS_, i els del Grup 2 són els _ALCALINOTERRIS_. Tots són molt _REACTIUS_ amb l'aigua.",
-    respostes: ["Alcalins", "Alcalinoterris", "Reactius"],
-    tipus: "both",
-    extraElements: ["Gasos Nobles", "Halògens", "Inerts", "Semimetalls", "Estables"],
-  },
-  {
-    id: 4,
-    text: "L'_OXIGEN_ és un element essencial per a la _VIDA_ i forma part de la molècula d'_AIGUA_ (H2O).",
-    respostes: ["Oxigen", "Vida", "Aigua"],
-    tipus: "drag",
-    extraElements: ["Nitrogen", "Mort", "Foc", "Carboni", "Terra"],
-  },
-  {
-    id: 5,
-    text: "El símbol 'Au' representa l'_OR_, un metall _PRECIÓS_ i molt _MALLEABLE_. 'Ag' és la _PLATA_.",
-    respostes: ["Or", "Preciós", "Malleable", "Plata"],
-    tipus: "type",
-    extraElements: [],
-  },
-  {
-    id: 6,
-    text: "Els gasos nobles, com l'_HELI_ i el _NEÓ_, són coneguts per la seva baixa _REACTIVITAT_ química, ja que tenen la seva última capa d'electrons _COMPLETA_.",
-    respostes: ["Heli", "Neó", "Reactivitat", "Completa"],
-    tipus: "both",
-    extraElements: ["Xenó", "Fluor", "Densitat", "Buida", "Argó", "Incompleta"],
-  },
-  {
-    id: 7,
-    text: "El _FERRO_ (Fe) és un metall de _TRANSICIÓ_ i és un component clau en la producció d'_ACER_. És un dels elements més _ABUNDANTS_ a la Terra.",
-    respostes: ["Ferro", "Transició", "Acer", "Abundants"],
-    tipus: "drag",
-    extraElements: ["Coure", "Alcalí", "Bronze", "Rars", "Or", "Dúctil"],
-  },
-  {
-    id: 8,
-    text: "Els _HALÒGENS_ (Grup 17), com el _CLOR_ i el _IODE_, són molt _REACTIUS_ i formen compostos amb la majoria d'elements. Sovint s'utilitzen com a _DESINFECTANTS_.",
-    respostes: ["Halògens", "Clor", "Iode", "Reactius", "Desinfectants"],
-    tipus: "both",
-    extraElements: ["Calcógenos", "Sofre", "Brom", "Estables", "Aïllants", "Neutres", "Àcids"],
-  },
-  {
-    id: 9,
-    text: "El _CARBONI_ és la base de la química _ORGÀNICA_ i pot formar _CADENES_ llargues. És present en formes al·lotròpiques com el _DIAMANT_ i el grafit.",
-    respostes: ["Carboni", "Orgànica", "Cadenes", "Diamant"],
-    tipus: "type",
-    extraElements: [],
-  },
-  {
-    id: 10,
-    text: "El _SILICI_ és un _SEMIMETALL_ i és el segon element més _ABUNDANT_ a l'escorça terrestre. És fonamental en la indústria _ELECTRÒNICA_.",
-    respostes: ["Silici", "Semimetall", "Abundant", "Electrònica"],
-    tipus: "drag",
-    extraElements: ["Germani", "Metall", "Rar", "Mecànica", "Fust", "Aïllant"],
-  },
-  {
-    id: 11,
-    text: "El _FÒSFOR_ és un _NO-METALL_ vital per a la vida i es troba a l'ADN. El _SOFRE_ és un altre no-metall de color groc.",
-    respostes: ["Fòsfor", "No-metall", "Sofre"],
-    tipus: "both",
-    extraElements: ["Arsènic", "Metall", "Clor", "Bismut", "Tel·luri"],
-  },
-  {
-    id: 12,
-    text: "Els _LANTÀNIDS_ i _ACTÍNIDS_ són metalls de _TRANSICIÓ_ interns. Els _ACTÍNIDS_ són tots _RADIOACTIUS_.",
-    respostes: ["Lantànids", "Actínids", "Transició", "Actínids", "Radioactius"],
-    tipus: "both",
-    extraElements: ["Alcalins", "Halògens", "Principals", "Estables", "Metalls pesants", "Actius"],
-  },
-  {
-    id: 13,
-    text: "La _MASSA_ atòmica es mesura en unitats de massa atòmica (_UMA_). El nombre _ATÒMIC_ (Z) és el nombre de _PROTONS_ en un àtom.",
-    respostes: ["Massa", "uma", "Atòmic", "Protons"],
-    tipus: "type",
-    extraElements: [],
-  },
-  {
-    id: 14,
-    text: "L'element amb el símbol _Na_ és el _SODI_, un metall alcalí que reacciona violentament amb l'_AIGUA_.",
-    respostes: ["Na", "Sodi", "aigua"],
-    tipus: "drag",
-    extraElements: ["Cl", "Potassi", "Foc", "Liti", "Aire"],
-  },
-  {
-    id: 15,
-    text: "Els elements del Grup 13 són els _BOROIDES_, i els del Grup 14 són els _CARBONOIDES_. El _SILICI_ pertany a aquest darrer grup.",
-    respostes: ["Boroides", "Carbonoides", "Silici"],
-    tipus: "both",
-    extraElements: ["Nitrogenoides", "Oxigenoides", "Germani", "Estany"],
-  },
-];
+const preguntesOmplirBuits = window.ChemiQuizI18n.content("omplir_buits");
+const t = window.ChemiQuizI18n.t;
+
+function fillSummaryHtml(correct, attempts, minutes, seconds, finalScore) {
+  return t("fill.final_message_html", {
+    correct: correct,
+    attempts: attempts,
+    time: minutes + ':' + seconds,
+    score: finalScore
+  });
+}
+
+function fillProgressText(current, total) {
+  return t("common.question_of_total", { current: current, total: total });
+}
+
 
 formulari.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -203,7 +112,7 @@ function carregarPregunta() {
   preguntesFetes++;
 
   const numeroPregunta = document.createElement("p");
-  numeroPregunta.textContent = preguntesFetes + " de " + preguntesTotals;
+  numeroPregunta.textContent = fillProgressText(preguntesFetes, preguntesTotals);
   crono.replaceChildren(numeroPregunta);
 
   const partsFrase = pregunta.text.split(/_([^_]+)_/g);
@@ -219,7 +128,7 @@ function carregarPregunta() {
       if (pregunta.tipus === "type" || pregunta.tipus === "both") {
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = "_______";
+        input.placeholder = t("fill.blank_placeholder");
         input.addEventListener("change", (e) =>
           comprovarRespostaEscrita(e, buit)
         );
@@ -432,10 +341,7 @@ function finalitzarJoc() {
   const formattedSeconds =
     secondsDisplay < 10 ? "0" + secondsDisplay : secondsDisplay;
 
-  missatgeFinal.innerHTML = `
-    N'has encertat <strong>${puntuacio}</strong> en <strong>${intents}</strong> intents. </br> Temps total: <strong>${minutes}:${formattedSeconds}</strong>.
-    <h1>Puntuació: ${puntuacioFinal}</h1>
-  `;
+  missatgeFinal.innerHTML = fillSummaryHtml(puntuacio, intents, minutes, formattedSeconds, puntuacioFinal);
 
   $.ajax({
     url: "https://fun.codelearn.cat/hackathon/game/finalize",
@@ -451,7 +357,7 @@ function finalitzarJoc() {
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("Error en finalitzar de la partida: ", textStatus, errorThrown);
-      alert("Error en finalitzar de la partida: " + textStatus);
+      alert(t("common.finalize_error", { status: textStatus }));
     },
   });
 }
@@ -509,13 +415,13 @@ function newGameRequest() {
         seed = data["seed"];
       } else {
         console.error("Error en la creació de la partida: status " + jqXHR.status);
-        alert("Error en la creació de la partida: " + jqXHR.status);
+        alert(t("common.create_error", { status: jqXHR.status }));
         reiniciarJoc();
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("Error en la creació de la partida: ", textStatus, errorThrown);
-      alert("Error en la creació de la partida: " + textStatus);
+      alert(t("common.create_error", { status: textStatus }));
       reiniciarJoc();
     },
   });

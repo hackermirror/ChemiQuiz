@@ -1,4 +1,4 @@
-﻿// Get DOM elements for game sections and controls
+// Get DOM elements for game sections and controls
 const formulari = document.getElementById("configuracioJoc");
 const seccioFormulari = document.getElementById("formulari");
 const seccioJoc = document.getElementById("joc");
@@ -43,87 +43,22 @@ let intervalStatus = null; // Interval per guardar l'estat del joc al servidor
 let currentChallengeQuestion = null;
 
 // Combined array of all questions (element-related, history, properties, and fill-in-the-blank)
-const allQuestions = [
-  // Història
-  {
-    pregunta: "Qui va ser el creador de la taula periòdica?",
-    opcions: [
-      "Dmitri Mendeléiev",
-      "Marie Curie",
-      "Isaac Newton",
-      "Albert Einstein",
-    ],
-    respostaCorrecta: "Dmitri Mendeléiev",
-    tipus: "multiple-choice",
-    temps: 20, // Default time for this question in 'Mix' mode
-  },
-  {
-    pregunta: "Quin element és la base de tota la vida orgànica?",
-    opcions: ["Oxigen", "Hidrogen", "Carboni", "Nitrogen"],
-    respostaCorrecta: "Carboni",
-    tipus: "multiple-choice",
-    temps: 20,
-  },
-  {
-    pregunta: "Quin gas noble s'utilitza per omplir els rètols de neó?",
-    opcions: ["Argó", "Heli", "Neó", "Xenó"],
-    respostaCorrecta: "Neó",
-    tipus: "multiple-choice",
-    temps: 15,
-  },
-  {
-    pregunta: "Quin àcid es troba a l'estómac humà i ajuda a la digestió?",
-    opcions: [
-      "Àcid nítric",
-      "Àcid sulfúric",
-      "Àcid clorhídric",
-      "Àcid acètic",
-    ],
-    respostaCorrecta: "Àcid clorhídric",
-    tipus: "multiple-choice",
-    temps: 25,
-  },
-  // Element-related questions (originally from drag-and-drop context but repurposed)
-  {
-    pregunta: "Quin element es troba en el centre de la molècula d'hemoglobina en la sang?",
-    opcions: ["Ferro", "Coure", "Zinc", "Magnesi"],
-    respostaCorrecta: "Ferro",
-    tipus: "multiple-choice",
-    temps: 20,
-  },
-  {
-    pregunta: "La plata té el símbol Ag. Quin és el seu nombre atòmic?",
-    opcions: ["47", "29", "13", "80"],
-    respostaCorrecta: "47",
-    tipus: "multiple-choice",
-    temps: 15,
-  },
-  // Fill-in-the-blank questions
-  {
-    pregunta: "El símbol químic de l'[BLANC] és Au.",
-    respostaCorrecta: "Or",
-    tipus: "omplir-buits",
-    temps: 15,
-  },
-  {
-    pregunta: "L'element més abundant a l'escorça terrestre és l'[BLANC].",
-    respostaCorrecta: "Oxigen",
-    tipus: "omplir-buits",
-    temps: 20,
-  },
-  {
-    pregunta: "La fórmula química de l'aigua és [BLANC].",
-    respostaCorrecta: "H2O",
-    tipus: "omplir-buits",
-    temps: 10,
-  },
-  {
-    pregunta: "El pH neutre d'una substància és [BLANC].",
-    respostaCorrecta: "7",
-    tipus: "omplir-buits",
-    temps: 12,
-  },
-];
+const allQuestions = window.ChemiQuizI18n.content("proves_rapides");
+const t = window.ChemiQuizI18n.t;
+
+function quickProgressText(current, total) {
+  return t("common.question_of_total", { current: current, total: total });
+}
+
+function quickSummaryHtml(correct, attempts, time, score) {
+  return t("quick.final_message_html", {
+    correct: correct,
+    attempts: attempts,
+    time: time,
+    score: score
+  });
+}
+
 
 // All available elements for drag-and-drop challenges
 const totsElsElements = [
@@ -344,7 +279,7 @@ function displayNextChallenge() {
   infoBar.innerHTML = ''; // Clear previous content
 
   // Update crono (blue box for question count)
-  crono.textContent = `Pregunta ${preguntesFetes} de ${preguntesTotals}`;
+  crono.textContent = quickProgressText(preguntesFetes, preguntesTotals);
   infoBar.appendChild(crono);
 
   // Update cronoPregunta (red box for timer)
@@ -543,13 +478,13 @@ function verificarResposta(respostaSeleccionada) {
  */
 function mostrarPreguntaOmplirBuits(question) {
   // Replace [BLANC] placeholder with an input field
-  const questionTextHtml = question.pregunta.replace("[BLANC]", `<input type="text" id="fillInBlankInput" placeholder="Escriu la teva resposta aquí..." autocomplete="off">`);
+  const questionTextHtml = question.pregunta.replace("[BLANC]", `<input type="text" id="fillInBlankInput" placeholder="" autocomplete="off">`);
   textPregunta.innerHTML = questionTextHtml; // Use innerHTML to render the input
 
   opcionsRespostes.innerHTML = ""; // Clear any previous options
 
   const checkAnswerButton = document.createElement("button");
-  checkAnswerButton.textContent = "Comprovar Resposta";
+  checkAnswerButton.textContent = t("common.check_answer");
   checkAnswerButton.id = "checkAnswerBtn";
   opcionsRespostes.appendChild(checkAnswerButton);
 
@@ -603,7 +538,7 @@ function verificarRespostaOmplirBuits(respostaUsuari) {
     inputField.style.borderColor = '#dc3545'; // Red border
     // Optionally, display the correct answer
     const correctAnswerDisplay = document.createElement('p');
-    correctAnswerDisplay.textContent = `La resposta correcta era: "${currentChallengeQuestion.respostaCorrecta}"`;
+    correctAnswerDisplay.textContent = t("common.correct_answer_was", { answer: currentChallengeQuestion.respostaCorrecta });
     correctAnswerDisplay.style.color = '#28a745';
     correctAnswerDisplay.style.fontWeight = 'bold';
     opcionsRespostes.appendChild(correctAnswerDisplay);
@@ -697,7 +632,7 @@ function handleQuestionTimeout() {
     });
     // Add a message about timeout
     const timeoutMsg = document.createElement('p');
-    timeoutMsg.textContent = "Temps esgotat! La resposta es considera incorrecta.";
+    timeoutMsg.textContent = t("quick.timeout_incorrect");
     timeoutMsg.style.color = '#dc3545'; // Red color
     timeoutMsg.style.fontWeight = 'bold';
     opcionsRespostes.appendChild(timeoutMsg);
@@ -710,7 +645,7 @@ function handleQuestionTimeout() {
 
     // Add a message about timeout and reveal correct answer
     const timeoutMsg = document.createElement('p');
-    timeoutMsg.textContent = `Temps esgotat! La resposta correcta era: "${currentChallengeQuestion.respostaCorrecta}"`;
+    timeoutMsg.textContent = t("quick.timeout_correct_answer", { answer: currentChallengeQuestion.respostaCorrecta });
     timeoutMsg.style.color = '#dc3545'; // Red color
     timeoutMsg.style.fontWeight = 'bold';
     if (opcionsRespostes) opcionsRespostes.appendChild(timeoutMsg);

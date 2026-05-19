@@ -1,4 +1,10 @@
-﻿const totsElsElements = [
+const t = window.ChemiQuizI18n.t;
+
+function shortProgressText(current, total) {
+  return t("common.of_total_short", { current: current, total: total });
+}
+
+const totsElsElements = [
   {
     nom: "Hidrogen",
     simbol: "H",
@@ -297,7 +303,7 @@ function crearTaulell() {
     .slice(0, 5);
 
   const preguntaActualDisplay = document.createElement("p");
-  preguntaActualDisplay.textContent = preguntesFetes + " de " + preguntesTotals;
+  preguntaActualDisplay.textContent = shortProgressText(preguntesFetes, preguntesTotals);
   crono.replaceChildren(preguntaActualDisplay); // Mostra la pregunta actual
 
   carregarElements(seleccionatsPerRonda);
@@ -472,9 +478,7 @@ function finalitzarJoc() {
   const minutes = Math.floor(seconds / 60);
   const seconds2 = seconds % 60; 
 
-  missatgeFinal.innerHTML = `
-    N'has encertat <strong>${puntuacio}</strong> en <strong>${intents}</strong> intents. </br> En ${minutes}:${seconds2} segons.</br> <h1>${puntuacioFinal.toFixed(2)} punts</h1>
-  `;
+  missatgeFinal.innerHTML = t("memory_images.final_message_html", { correct: puntuacio, attempts: intents, time: minutes + ":" + seconds2, score: puntuacioFinal.toFixed(2) });
 
   $.ajax({
     url: "https://fun.codelearn.cat/hackathon/game/finalize",
@@ -486,10 +490,10 @@ function finalitzarJoc() {
       score: puntuacioFinal,
     }),
     success: function (data, textStatus, jqXHR) {
-      alert("Informació guardada correctament");
+      alert(t("common.saved_ok"));
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      alert("Error en finalitzar de la partida: " + textStatus);
+      alert(t("common.finalize_error", { status: textStatus }));
     },
   });
 }
@@ -532,12 +536,12 @@ function newGameRequest() {
         game_id = data["game_id"];
         seed = data["seed"];
       } else {
-        alert("Error en la creació de la partida: status " + jqXHR.status);
+        alert(t("common.create_error_status", { status: jqXHR.status }));
         reiniciarJoc();
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      alert("Error en la creació de la partida: " + textStatus);
+      alert(t("common.create_error", { status: textStatus }));
       reiniciarJoc();
     },
   });

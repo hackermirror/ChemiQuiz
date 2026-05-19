@@ -1,4 +1,4 @@
-﻿// Aquesta constant ha d'estar DINS d'aquest fitxer JS (o importada)
+// Aquesta constant ha d'estar DINS d'aquest fitxer JS (o importada)
 // per a que la taula periòdica pugui accedir a les URLs de les imatges.
 const totsElsElements = [
   {
@@ -218,11 +218,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const elements = document.querySelectorAll(".element");
   const infoDisplay = document.getElementById("info-display");
   const resumText = document.getElementById("resum");
+  const t = window.ChemiQuizI18n.t;
 
   // Funció per mostrar el missatge inicial
   const showInitialMessage = () => {
     resumText.textContent =
-      "Clica sobre un element per veure més informació."; // Actualitzem el text del resum
+      t("info.initial_message"); // Actualitzem el text del resum
     infoDisplay.innerHTML = ""; // Buidem la informació específica
   };
 
@@ -239,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     elementHTML.addEventListener("click", () => {
       // Ocultem el missatge inicial quan hi ha informació
-      resumText.textContent = "Informació de l'element:"; // Canviem el títol
+      resumText.textContent = t("info.element_information"); // Canviem el títol
       infoDisplay.innerHTML = ""; // Buidem contingut anterior
 
       // Creem un div per cada línia d'informació
