@@ -172,22 +172,7 @@ function acabarJocVf() {
   missatgeFinalVf.textContent = t("vf.final_message", { score: scoreVf, total: totalQuestionsVf });
 
   // Aquí pots afegir la lògica per enviar la puntuació al servidor si la vols mantenir
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/finalize",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({
-      game_id: game_id_vf,
-      data: {},
-      score: scoreVf,
-    }),
-    success: function (data, textStatus, jqXHR) {
-      console.log("Informació de Veritat o Fals guardada correctament");
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en finalitzar de la partida de Veritat o Fals: " + textStatus);
-    },
-  });
+
 }
 
 function reiniciarJocVf() {
@@ -223,8 +208,6 @@ function tornarAlMenuVf() {
 // Listener per al formulari de configuració del joc
 document.getElementById("configuracioJocVf").addEventListener("submit", (e) => {
   e.preventDefault();
-  // newGameRequestVf(); // Activar si necessites la petició al servidor al començar
-  startSaveStatusVf(); // Activar si vols guardar el progrés
 
   const dificultat = document.getElementById("dificultatVf").value;
   if (dificultat === "facil") totalQuestionsVf = 10;
@@ -259,47 +242,13 @@ tornarMenuResultatVfBtn.addEventListener("click", tornarAlMenuVf);
 
 // Funcions per a la comunicació amb el servidor (adapta-les si cal)
 function newGameRequestVf() {
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/new",
-    method: "GET",
-    success: function (data, textStatus, jqXHR) {
-      if (jqXHR.status === 200) {
-        game_id_vf = data["game_id"];
-        seed_vf = data["seed"];
-      } else {
-        console.error("Error en la creació de la partida de Veritat o Fals: status " + jqXHR.status);
-        reiniciarJocVf();
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la creació de la partida de Veritat o Fals: " + textStatus);
-      reiniciarJocVf();
-    },
-  });
+  return null;
 }
 
 function startSaveStatusVf() {
-  if (intervalStatusVf) return;
-  intervalStatusVf = setInterval(() => {
-    $.ajax({
-      url: "https://fun.codelearn.cat/hackathon/game/store_progress",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        game_id: game_id_vf,
-        data: { preguntesRespongudes: questionsAskedVf },
-      }),
-      success: function (data, textStatus, jqXHR) {
-        console.log("Informació de Veritat o Fals guardada correctament");
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.error("Error en guardar progrés de la partida de Veritat o Fals: " + textStatus);
-      },
-    });
-  }, 15000);
+  return null;
 }
 
 function stopSaveStatusVf() {
-  clearInterval(intervalStatusVf);
-  intervalStatusVf = null;
+  return null;
 }

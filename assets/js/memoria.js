@@ -153,8 +153,6 @@ formulari.addEventListener("submit", (e) => {
 });
 
 function iniciarJoc(dificultat) {
-  newGameRequest();
-  startSaveStatus();
 
   puntuacio = 0;
   intents = 0;
@@ -308,22 +306,6 @@ function finalitzarJoc() {
 
   missatgeFinal.innerHTML = t("memory.final_message_html", { correct: puntuacio, attempts: intents, time: minutes + ":" + seconds2, score: puntuacioFinal });
 
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/finalize",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({
-      game_id: game_id,
-      data: { temps: seconds },
-      score: puntuacioFinal,
-    }),
-    success: function (data, textStatus, jqXHR) {
-      alert(t("common.saved_ok"));
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      alert(t("common.finalize_error", { status: textStatus }));
-    },
-  });
 }
 
 function reiniciarJoc() {
@@ -376,47 +358,13 @@ function calculaPuntuacio(totalPreguntes, totalIntents) {
 
 //requests to the server
 function newGameRequest() {
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/new",
-    method: "GET",
-    success: function (data, textStatus, jqXHR) {
-      if (jqXHR.status === 200) {
-        game_id = data["game_id"];
-        seed = data["seed"];
-      } else {
-        alert(t("common.create_error_status", { status: jqXHR.status }));
-        reiniciarJoc();
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      alert(t("common.create_error", { status: textStatus }));
-      reiniciarJoc();
-    },
-  });
+  return null;
 }
 function startSaveStatus() {
-  if (intervalStatus) return; // si ja està corrent no fem res
-  intervalStatus = setInterval(() => {
-    $.ajax({
-      url: "https://fun.codelearn.cat/hackathon/game/store_progress",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        game_id: game_id,
-        data: { tempsTransurrit: seconds },
-      }),
-      success: function (data, textStatus, jqXHR) {
-        console.log("Informació guardada correctament");
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log("Error en finalitzar de la partida: " + textStatus);
-      },
-    });
-  }, 15000);
+  return null;
 }
 function stopSaveStatus() {
-  clearInterval(intervalStatus);
-  intervalStatus = null;
+  return null;
 }
 
 window.reiniciarJoc = reiniciarJoc;

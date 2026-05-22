@@ -116,8 +116,6 @@ formulari.addEventListener("submit", (e) => {
  * @param {string} modalitat - The chosen game mode (flash, mix, extension).
  */
 function iniciarJoc(dificultat, importancia, modalitat) {
-  newGameRequest(); // Request a new game ID and seed from the server
-  startSaveStatus(); // Start periodically saving game progress
 
   // Reset game state
   puntuacio = 0;
@@ -705,22 +703,7 @@ function finalitzarJoc() {
   `;
 
   // Send game finalization data to the server
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/finalize",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({
-      game_id: game_id,
-      data: { temps: seconds, puntuacio: puntuacio, intents: intents },
-      score: parseFloat(puntuacioFinal), // Ensure score is a number for the API
-    }),
-    success: function (data, textStatus, jqXHR) {
-      console.log("Informació de finalització de partida guardada correctament.");
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en finalitzar la partida:", textStatus, errorThrown);
-    },
-  });
+
 }
 
 /**
@@ -769,59 +752,21 @@ function calculaPuntuacio(totalCorrect, totalAttempts) {
  * Makes a request to the server to start a new game and get a game ID and seed.
  */
 function newGameRequest() {
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/new",
-    method: "GET",
-    success: function (data, textStatus, jqXHR) {
-      if (jqXHR.status === 200 && data) {
-        game_id = data["game_id"];
-        seed = data["seed"]; // Use the seed for consistent shuffling (though Math.random() directly ignores it)
-      } else {
-        console.error("Error en la creació de la partida: status " + jqXHR.status);
-        reiniciarJoc(); // Reset game on error
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error en la creació de la partida:", textStatus, errorThrown);
-      reiniciarJoc(); // Reset game on error
-    },
-  });
+  return null;
 }
 
 /**
  * Starts periodically saving game progress to the server.
  */
 function startSaveStatus() {
-  if (intervalStatus) return; // Prevent multiple intervals
-  intervalStatus = setInterval(() => {
-    if (game_id === 0) { // Only send if game_id is available
-      console.warn("No game_id available to save progress.");
-      return;
-    }
-    $.ajax({
-      url: "https://fun.codelearn.cat/hackathon/game/store_progress",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        game_id: game_id,
-        data: { tempsTranscurrit: seconds, puntuacioActual: puntuacio, intentsActuals: intents, preguntesCompletades: preguntesFetes },
-      }),
-      success: function (data, textStatus, jqXHR) {
-        // console.log("Informació de progrés guardada correctament."); // Log for debugging, avoid frequent alerts
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.error("Error en guardar el progrés de la partida:", textStatus, errorThrown);
-      },
-    });
-  }, 10000); // Save every 10 seconds
+  return null;
 }
 
 /**
  * Stops periodically saving game progress to the server.
  */
 function stopSaveStatus() {
-  clearInterval(intervalStatus);
-  intervalStatus = null;
+  return null;
 }
 
 /**

@@ -176,22 +176,6 @@ function acabarJoc() {
 
   if (!game_id) return;
 
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/finalize",
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({
-      game_id: game_id,
-      data: {},
-      score: score,
-    }),
-    success: function (data, textStatus, jqXHR) {
-      console.log(t("common.saved_ok"));
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.log(t("common.finalize_error", { status: textStatus }));
-    },
-  });
 }
 
 function reiniciarJoc() {
@@ -228,8 +212,6 @@ function tornarAlMenu() {
 
 document.getElementById("configuracioJoc").addEventListener("submit", (e) => {
   e.preventDefault();
-  newGameRequest();
-  startSaveStatus();
 
   const dificultat = document.getElementById("dificultat").value;
   if (dificultat === "facil") totalQuestions = 10;
@@ -278,49 +260,13 @@ if (tornarMenuResultatBtn) {
 
 //requests to the server
 function newGameRequest() {
-  $.ajax({
-    url: "https://fun.codelearn.cat/hackathon/game/new",
-    method: "GET",
-    success: function (data, textStatus, jqXHR) {
-      if (jqXHR.status === 200) {
-        game_id = data["game_id"];
-        seed = data["seed"];
-        startSaveStatus();
-      } else {
-        game_id = 0;
-        console.log(t("common.create_error_status", { status: jqXHR.status }));
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      game_id = 0;
-      console.log(t("common.create_error", { status: textStatus }));
-    },
-  });
+  return null;
 }
 function startSaveStatus() {
-  if (!game_id) return;
-  if (intervalStatus) return; // si ja està corrent no fem res
-  intervalStatus = setInterval(() => {
-    $.ajax({
-      url: "https://fun.codelearn.cat/hackathon/game/store_progress",
-      method: "POST",
-      contentType: "application/json",
-      data: JSON.stringify({
-        game_id: game_id,
-        data: { questionsAnswered: questionsAsked },
-      }),
-      success: function (data, textStatus, jqXHR) {
-        console.log("Progress saved");
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log("Progress save failed: " + textStatus);
-      },
-    });
-  }, 15000);
+  return null;
 }
 function stopSaveStatus() {
-  clearInterval(intervalStatus);
-  intervalStatus = null;
+  return null;
 }
 
 //carregar tipus preguntes
